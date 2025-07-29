@@ -1,0 +1,8 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+ul {
+  list-style-type: square;
+  margin-top: 10px;
+}
