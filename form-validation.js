@@ -1,26 +1,40 @@
-document.getElementById("registrationForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("form");
 
-  const username = document.getElementById("username").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
-
-  if (username === "") {
-    alert("Username is required.");
-    return;
-  }
-
-  const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-  if (!emailPattern.test(email)) {
-    alert("Please enter a valid email.");
-    return;
-  }
-
-  if (password.length < 6) {
-    alert("Password must be at least 6 characters long.");
-    return;
-  }
-
-  // If all checks pass
-  alert("Form submitted successfully!");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent form from submitting
+    validateForm();
+  });
 });
+
+function validateForm() {
+  const username = document.getElementById("username");
+  const email = document.getElementById("email");
+  const password = document.getElementById("password");
+
+  let isValid = true;
+
+  // Username validation: must not be empty
+  if (username.value.trim() === "") {
+    alert("Username is required.");
+    isValid = false;
+  }
+
+  // Email validation: must match email pattern
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email.value)) {
+    alert("Please enter a valid email.");
+    isValid = false;
+  }
+
+  // Password validation: must be at least 6 characters
+  if (password.value.length < 6) {
+    alert("Password must be at least 6 characters.");
+    isValid = false;
+  }
+
+  if (isValid) {
+    alert("Form submitted successfully!");
+    document.getElementById("form").submit();
+  }
+}
