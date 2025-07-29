@@ -1,45 +1,34 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.getElementById('registration-form');
-  const feedbackDiv = document.getElementById('form-feedback');
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector("#registrationForm");
+  const feedbackDiv = document.querySelector("#feedback");
 
-  form.addEventListener('submit', function (event) {
+  form.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const username = document.getElementById('username').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
+    const username = document.querySelector("#username").value.trim();
+    const email = document.querySelector("#email").value.trim();
 
     let isValid = true;
-    let messages = [];
+    const messages = [];
 
-    // Username validation
-    if (username.length < 3) {
+    if (username === "") {
       isValid = false;
-      messages.push("Username must be at least 3 characters long.");
+      messages.push("Username is required.");
     }
 
-    // Email validation
-    if (!email.includes('@') || !email.includes('.')) {
+    if (email === "") {
       isValid = false;
-      messages.push("Email must contain '@' and '.'.");
+      messages.push("Email is required.");
     }
 
-    // Password validation
-    if (password.length < 8) {
-      isValid = false;
-      messages.push("Password must be at least 8 characters long.");
-    }
-
-    feedbackDiv.style.display = 'block';
+    feedbackDiv.style.display = "block";
 
     if (isValid) {
       feedbackDiv.textContent = "Registration successful!";
-      feedbackDiv.style.color = "#28a745"; // green
-      feedbackDiv.style.backgroundColor = "#d4edda";
+      feedbackDiv.style.color = "#28a745";
     } else {
-      feedbackDiv.innerHTML = messages.join('<br>');
-      feedbackDiv.style.color = "#dc3545"; // red
-      feedbackDiv.style.backgroundColor = "#ffbaba";
+      feedbackDiv.innerHTML = messages.join("<br>");
+      feedbackDiv.style.color = "#dc3545";
     }
   });
 });
