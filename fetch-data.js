@@ -1,34 +1,42 @@
-// fetch-data.js
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("form");
+  const username = document.getElementById("username");
+  const email = document.getElementById("email");
+  const password = document.getElementById("password");
 
-async function fetchUserData() {
-    const apiUrl = 'https://jsonplaceholder.typicode.com/users';
-    const dataContainer = document.getElementById('api-data');
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-    try {
-        const response = await fetch(apiUrl);
-        const users = await response.json();
+    let valid = true;
 
-        // Clear the loading message
-        dataContainer.innerHTML = '';
-
-        // Create a <ul> element to hold the user names
-        const userList = document.createElement('ul');
-
-        users.forEach(user => {
-            const listItem = document.createElement('li');
-            listItem.textContent = user.name;
-            userList.appendChild(listItem);
-        });
-
-        // Append the list to the data container
-        dataContainer.appendChild(userList);
-
-    } catch (error) {
-        dataContainer.innerHTML = '';
-        dataContainer.textContent = 'Failed to load user data.';
-        console.error('Error fetching user data:', error);
+    // Username: must not be empty
+    if (username.value.trim() === "") {
+      username.style.border = "2px solid red";
+      valid = false;
+    } else {
+      username.style.border = "2px solid green";
     }
-}
 
-// Call the function when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', fetchUserData);
+    // Email: must be valid format
+    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!email.value.match(emailPattern)) {
+      email.style.border = "2px solid red";
+      valid = false;
+    } else {
+      email.style.border = "2px solid green";
+    }
+
+    // Password: at least 6 characters
+    if (password.value.length < 6) {
+      password.style.border = "2px solid red";
+      valid = false;
+    } else {
+      password.style.border = "2px solid green";
+    }<script src="fetch-data.js"></script>
+
+    if (valid) {
+      alert("Form is valid and ready to submit!");
+      form.submit(); // or simulate submission
+    }
+  });
+});
